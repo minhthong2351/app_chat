@@ -1,0 +1,105 @@
+body{margin-top:20px;}
+
+.chat-online {
+  color: #34ce57
+}
+
+.chat-offline {
+  color: #e4606d
+}
+.list-user {
+  display: flex;
+  flex-direction: column;
+  max-height: 478px;
+  overflow-y: scroll
+}
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  min-height: 490px;
+  max-height: 490px;
+  overflow-y: scroll
+}
+
+.chat-message-left,
+.chat-message-right {
+  display: flex;
+  flex-shrink: 0
+}
+
+.chat-message-left {
+  margin-right: auto
+}
+
+.chat-message-right {
+  flex-direction: row-reverse;
+  margin-left: auto
+}
+.py-3 {
+
+  padding-top: 1rem!important;
+  padding-bottom: 1rem!important;
+}
+.px-4 {
+  padding-right: 1.5rem!important;
+  padding-left: 1.5rem!important;
+}
+.flex-grow-0 {
+  flex-grow: 0!important;
+}
+.border-top {
+  border-top: 1px solid #dee2e6!important;
+}
+.form-control{
+
+}
+.btn-primary{
+  border-radius: 50px;
+}
+.bg-light{
+  background-color: blue !important;
+  color: white;
+  height: 100%;
+}
+.py-2{
+}
+.pl-3{
+  float: left;
+}
+.giaodien{
+}
+#dark{
+  background-color: black;
+}
+
+.list-group-items {
+  position: relative;
+  display: block;
+  /* padding: 0.5rem 1.5rem; */
+  color: #262626;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+.list-group-items:hover {
+  background-color: rgba(0, 0, 0, 0.125);
+}
+.closeSearch:hover{
+  background-color: red!important;
+}
+a.Dark{
+  background-color: black;
+  color: white;
+}
+div.Dark{
+  background-color: black;
+  color: white;
+}
+div.Normal{
+  background-color: white;
+}
+.content-Dark{
+  background-color: black;
+  color: white;
+}
+

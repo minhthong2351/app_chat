@@ -1,0 +1,13 @@
+.mdb-timepicker-toggle {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border-color: transparent;
+  background-color: transparent;
+}
+.mdb-timepicker-toggle svg {
+  height: 1em;
+}
+
+/*# sourceMappingURL=timepicker-toggle.component.css.map */

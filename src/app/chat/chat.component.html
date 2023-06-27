@@ -1,0 +1,137 @@
+<main class="content-{{ShowDarkModel}}" style="margin-top: 20px"  >
+      <div class="jumbotron {{ShowDarkModel}}" style="margin-top: -20px">
+        Mode
+        <select class="form-control" style="background-color:  rgba(18, 102, 241);color: white" [(ngModel)]="ShowDarkModel">
+          <option value="Normal" selected="selected">Normal</option>
+          <option value="Dark">Dark Mode</option>
+
+        </select>
+      </div>
+  <div class="container p-0 {{ShowDarkModel}}" >
+    <h1 class="h3 mb-3">Chat Box</h1>
+    <div class="card {{ShowDarkModel}}">
+      <div class="row g-0">
+        <div class="col-12 col-lg-5 col-xl-3 border-right" style="min-width: 400px">
+          <div class="px-4 d-none d-md-block">
+            <div class="d-flex align-items-center">
+              <div class="flex-grow-1">
+                <label><input [(ngModel)]="roomName"  name="roomName" placeholder="Room Name..." style="max-width: 180px; border-radius: 4px"><button (click)="sendCreateRoom()" class="btn btn-primary" style="margin-left: 2px">Add</button></label>
+                <button (click)="sendOut()"class="btn btn-primary" style="margin-left: 2px; max-width: 100px">Logout</button>
+                <div>
+                  <a *ngIf="mes != 'Bạn đã tạo Room thành công !!!'"style="color: white; background-color: red;border-radius: 4px ">{{mes}}</a>
+                  <a *ngIf="mes == 'Bạn đã tạo Room thành công !!!'"style="color: white; background-color: green;border-radius: 4px ">{{mes}}</a>
+                </div>
+                <label><input [(ngModel)]="roomJoin"  name="roomJoin" placeholder="Join Room Name..." style="min-width: 270px; border-radius: 4px; margin-top: 10px"></label>
+                <button (click)="sendJoinRoom()"class="btn btn-primary" style="margin-left: 2px; max-width: 100px">Join</button>
+                <div>
+                  <a *ngIf="joinmes != 'Bạn đã tham gia vào Room thành công !!!'"style="color: white; background-color: red;border-radius: 4px ">{{joinmes}}</a>
+                  <a *ngIf="joinmes == 'Bạn đã tham gia vào Room thành công !!!'"style="color: white; background-color: green;border-radius: 4px ">{{joinmes}}</a>
+                </div>
+                <label><input [(ngModel)]="searchName" style="min-width: 253px" type="text" class="form-control my-3" placeholder="Search..."></label>
+                <button (click)="sendSearch()" class="btn btn-primary my-3" style="margin-left: 2px">Search</button>
+                <div *ngIf="suser.name == ''">
+                  <a style="background-color: red">{{searchMes}}</a>
+                </div>
+                <div *ngIf="suser.name != ''" style="display: flex">
+                  <a *ngIf="suser.name != ''"  href="/chat" class="list-group-item list-group-item-action border-0" id = "search" style="display: block">
+                    <div class="d-flex align-items-start" ng-init="myVar = 'OIP.jpg'">
+                      <img src="assets/img/OIP.jpg" class="rounded-circle mr-1" alt="Jennifer Chang" width="40" height="40">
+                      <div class="flex-grow-1 ml-3" style="padding-left: 10px">
+                        {{suser.name}}
+                        <div class="text-muted small text-nowrap mt-2">{{suser.actionTime}}</div>
+                      </div>
+
+                    </div>
+                  </a>
+                  <button (click)="close()" class="closeSearch" style="border: white; background-color: white"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="list-user p-4 {{ShowDarkModel}}" >
+            <a>People</a>
+            <a (click)="getListMess()" class="list-group-items list-group-item-action border-0 {{ShowDarkModel}}" *ngFor="let User of listUser">
+              <div *ngIf="User.type == '0'"  class="d-flex align-items-start" style="padding: 0.5rem 1.5rem;">
+                <img src="assets/img/OIP.jpg" class="rounded-circle mr-1" alt="Jennifer Chang" width="40" height="40">
+                <div class="flex-grow-1 ml-3" style="padding-left: 10px">
+                  <a (click)="getListMess()">{{User.name}}</a>
+                  <div class="text-muted small text-nowrap mt-2">{{User.actionTime}}</div>
+                </div>
+              </div>
+            </a>
+            <a>Group</a>
+            <a (click)="getListMess()" class="list-group-items list-group-item-action border-0 {{ShowDarkModel}}" *ngFor="let Room of listUser">
+              <div  *ngIf="Room.type == '1'"class="d-flex align-items-start" style="padding: 0.5rem 1.5rem;">
+                <img src="assets/img/gruop.png" class="rounded-circle mr-1" alt="Jennifer Chang" width="40" height="40">
+                <div class="flex-grow-1 ml-3 " style="padding-left: 10px">
+                  <a>{{Room.name}}</a>
+                  <div class="text-muted small text-nowrap mt-2">{{Room.actionTime}}</div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <hr class="d-block d-lg-none mt-1 mb-0">
+        </div>
+        <div class="col-12 col-lg-7 col-xl-9" style="max-width: 740px">
+          <div class="py-2 px-4 border-bottom d-none d-lg-block">
+            <div class="d-flex align-items-center py-1" >
+              <div class="position-relative">
+                <img src="assets/img/OIP.jpg" class="rounded-circle mr-1" alt="User1" width="40" height="40">
+              </div>
+              <div class="flex-grow-1 pl-3" style="padding-left: 10px">
+              </div>
+            </div>
+          </div>
+          <div class="position-relative">
+            <div class="chat-messages p-4" >
+              <div *ngFor="let item of messageBox">
+                <div class="chat-message-right pb-4" *ngIf="item.id !== '' && item.type == 'people' && item.mes !== 'start'">
+                  <div style="padding-left: 5px">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
+                    <div class="text-muted small text-nowrap mt-2">2:33 am</div>
+                  </div>
+                  <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3" >
+                    <div class="font-weight-bold mb-1" >
+                      <strong>{{item.name}}: </strong>
+                      <span>{{item.mes}}</span>
+                    </div>
+                  </div>
+                </div>
+<!--                <div class="chat-message-left pb-4" *ngIf="item.id !== '' && item.type !== 'people' && item.mes !== 'start'">-->
+<!--                  <div>-->
+<!--                    <img src="assets/img/OIP.jpg" class="rounded-circle mr-1" alt="User1" width="40" height="40">-->
+<!--                    <div class="text-muted small text-nowrap mt-2">2:34 am</div>-->
+<!--                  </div>-->
+<!--                  <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">-->
+<!--                    &lt;!&ndash;                  <div class="font-weight-bold mb-1" >&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    User1&ndash;&gt;-->
+<!--                    &lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--                    {{item.mes}}-->
+<!--                  </div>-->
+<!--                </div>-->
+              </div>
+            </div>
+          </div>
+          <form (ngSubmit)="sendMsg(sendForm)" #sendForm="ngForm">
+            <div class="flex-grow-0 py-3 px-4 border-top"  >
+              <div class="chat-send row" >
+                <div class="col-2">
+                  <input [(ngModel)]="userMess" name="userMess" type="text" class="form-control" placeholder="User">
+                </div>
+                <div class="col-8">
+                  <input  [(ngModel)]="messageSend" name="messageSend" type="text" class="form-control" placeholder="Type your message" >
+                </div>
+                <div class="col-2">
+                  <button class="btn btn-primary" type="submit" id="send" >Send</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+  </div>
+</main>
